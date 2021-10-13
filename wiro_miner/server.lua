@@ -27,9 +27,12 @@ RegisterServerEvent('wiro_miner:givePara')
 AddEventHandler('wiro_miner:givePara', function(tokenmik, mik)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
-
-	xPlayer.removeInventoryItem("dastoken", tokenmik)
-	xPlayer.addMoney(mik)
+	
+	local xItem = xPlayer.getInventoryItem("dastoken")
+	if xItem.count <= tokenmik then
+		xPlayer.removeInventoryItem("dastoken", tokenmik)
+		xPlayer.addMoney(mik)
+	end
 
 end)
 
