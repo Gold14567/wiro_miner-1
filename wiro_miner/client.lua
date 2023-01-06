@@ -248,19 +248,19 @@ loadModel = function(model)
 end
 
 function TokenVerMenu()
-	ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'Token Satma', {
-		title = "Satılacak Token Miktarı",
-	}, function (data2, menu)
-		local tokenMik = tonumber(data2.value)
-		if tokenMik < 0 or tokenMik == nil then
-			TriggerEvent('wiro_notify:show', "error", "Bak şuan buga soktun", 3000)
-		else
+    ESX.UI.Menu.Open('dialog', GetCurrentResourceName(), 'Token Satma', {
+        title = "Takaslancak Elmas Miktarı",
+    }, function (data2, menu)
+        local tokenMik = tonumber(data2.value)
+        if tokenMik < 0 or tokenMik == nil then
+            TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = 'Bak şuan buga soktun'})
+        else
             TriggerServerEvent('wiro_miner:givePara', tokenMik, tokenMik * Config.BirTokenFiyat)
-			menu.close()
-		end
-	end, function (data2, menu)
-		menu.close()
-	end)
+            menu.close()
+        end
+    end, function (data2, menu)
+        menu.close()
+    end)
 end
 
 function mesajGoster(msg, action)
