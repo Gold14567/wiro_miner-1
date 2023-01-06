@@ -25,16 +25,19 @@ end)
 
 RegisterServerEvent('wiro_miner:givePara')
 AddEventHandler('wiro_miner:givePara', function(tokenmik, mik)
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	
-	local xItem = xPlayer.getInventoryItem("dastoken")
-	if xItem.count <= tokenmik then
-		xPlayer.removeInventoryItem("dastoken", tokenmik)
-		xPlayer.addMoney(mik)
-	end
-
-end)
+    local _source = source
+    local xPlayer = ESX.GetPlayerFromId(_source)
+    
+                if xPlayer.getInventoryItem('dastoken').count > 0 then
+                    local pieniadze = Config.BirTokenFiyat
+                    xPlayer.removeInventoryItem("dastoken", tokenmik)
+                    xPlayer.addMoney(pieniadze)
+                    TriggerClientEvent('esx:showNotification', source, 'Token Sattın!')
+                    TriggerClientEvent('esx:showNotification', source, 'Tokenin Değeri $' .. pieniadze)
+                elseif xPlayer.getInventoryItem('dastoken').count < 1 then
+                    TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Üzerinde yeterli eşya yok!' })
+                end
+            end)
 
 RegisterServerEvent('wiro_miner:kayalariver')
 AddEventHandler('wiro_miner:kayalariver', function()
